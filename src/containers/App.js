@@ -1,8 +1,10 @@
 //import logo from './logo.svg';
-import './App.css';
+import './App.css'
 import weather from '../services/weatherApi'
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import CardWeather from '../components/CardWeather'
+import CardRegion from '../components/CardRegion'
+import 'semantic-ui-css/semantic.min.css'
 
 class App extends Component {
   constructor() {
@@ -13,34 +15,23 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const objweather = await weather.getWeatherByDesc('sonora')
-    console.log(objweather.current);
+    const objweather = await weather.getWeatherByDesc('Hermosillo, Sonora, Mexico')
+    console.log(objweather);
     this.setState({items:objweather})
   }
   render() {
     const { items } = this.state;
    if (!items) {
-      return <div>Loading...</div>;
+      return (<div>Loading...</div>);
     } else {
       return (
         <div className="App">
-          <header className="App-header">
-            <img src={items.current?.weather_icons[0]} className="App-logo" alt="logo" />
-            <h2>
-              {items.current?.temperature}
-            </h2>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-          </header>
-          <div>
-    
-          <CardWeather current={items.current}/>
+          <div className="App-header">
+            <h1>Weather App</h1>
+          </div>
+          <div className="App-body">
+            <CardWeather current={items?.current}/>
+            <CardRegion location={items?.location}/>
           </div>
         </div>
       );
