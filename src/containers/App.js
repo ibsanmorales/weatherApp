@@ -15,12 +15,17 @@ class App extends Component {
       searchfield:'',
     }
   }
-  onSearchChange =async (event) =>{
-    //this.setState({searchfield: event.target.value});
-    const objweather = await weather.getWeatherByDesc( event.target.value.toLowerCase());
+  onSearchChange =  (event) =>{
+    this.setState({searchfield: event.target.value});
+    //console.log(this.state.searchfield);
+    //const objweather = await weather.getWeatherByDesc( event.target.value.toLowerCase());
+    //this.setState({items:objweather});
+  }
+  onClickSumit = async (event) =>{
+    //console.log(this.state.searchfield);
+    const objweather = await weather.getWeatherByDesc( this.state.searchfield);
     this.setState({items:objweather});
   }
-
   async componentDidMount() {
     const objweather = await weather.getWeatherByDesc('Hermosillo, Sonora, Mexico')
     console.log(objweather);
@@ -30,16 +35,25 @@ class App extends Component {
 
   render() {
     const { items } = this.state;
-   if (!items) {
-      return (<div>Loading...</div>);
-    } else {
-      return (
-        <div className="App">
+   if (items.error || items == null) {
+      return ( 
+        <div className="App bg-lightest-blue">
           <div className="App-header">
             <h1>Weather App</h1>
           </div>
           <div className="App-body">
-            <SearchWeather searchChange = {this.onSearchChange}/>
+          <h1 className="ErrorMsg">{items?.error?.code} : {items?.error?.info}</h1>
+          </div>
+        </div>
+        );
+    } else {
+      return (
+        <div className="App bg-lightest-blue">
+          <div className="App-header">
+            <h1>Weather App</h1>
+          </div>
+          <div className="App-body ">
+            <SearchWeather searchChange = {this.onSearchChange} searchButton={this.onClickSumit}/>
             <CardWeather current={items?.current}/>
             <CardRegion location={items?.location}/>
           </div>

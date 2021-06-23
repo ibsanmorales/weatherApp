@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CardWeather = ({current})=>{
     return (
-        <div className='ContainerGrid'>
+        <div className='ContainerGrid ma5'>
                  <Grid className='GridCard' stackable columns={3}>
                         <Grid.Row  >
                         <Grid.Column>

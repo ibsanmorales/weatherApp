@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-items: stretch;
+  background-size: cover;
 }
 
 .App-header {
@@ -16,11 +17,11 @@
 }
 .App-body{
   display: flex;
-  background-color: red;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 5rem;
+  height: 700px;
 }
 .App-logo {
   height: 40vmin;
@@ -40,4 +41,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.ErrorMsg{
+  margin-top: 200px;
 }
